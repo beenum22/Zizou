@@ -79,8 +79,9 @@ class Zizou(object):
     @staticmethod
     def _create_dir(directory):
         try:
-            if not os.path.exists(directory):
-                os.makedirs(directory)
+            abs_path = os.path.expanduser(directory)
+            if not os.path.exists(abs_path):
+                os.makedirs(abs_path)
         except OSError:
             logger.error("Failed to create the '%s' directory", directory)
             raise
