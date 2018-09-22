@@ -79,7 +79,7 @@ class Zizou(object):
     @staticmethod
     def _create_dir(directory):
         try:
-            abs_path = os.path.expanduser(directory)
+            abs_path = cls.get_abs_path(directory)
             if not os.path.exists(abs_path):
                 os.makedirs(abs_path)
         except OSError:
@@ -222,7 +222,7 @@ class Zizou(object):
 
     @classmethod
     def get_home_directory(cls):
-        return os.path.expanduser('~')
+        return cls.get_abs_path('~')
 
     @classmethod
     def join_paths(cls, *paths):
@@ -232,8 +232,13 @@ class Zizou(object):
         return p
 
     @classmethod
+    def get_abs_path(cls, path):
+        return os.path.expanduser(path)
+
+    @classmethod
     def check_file(cls, path):
-        if os.path.exists(path):
+        abs_path = get_abs_path(path)
+        if os.path.exists(abs_path):
             logger.debug("'%s' file already exisits", path)
             return True
         return False
