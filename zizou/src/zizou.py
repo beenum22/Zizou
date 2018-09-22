@@ -79,7 +79,7 @@ class Zizou(object):
     @staticmethod
     def _create_dir(directory):
         try:
-            abs_path = cls.get_abs_path(directory)
+            abs_path = Zizou.get_abs_path(directory)
             if not os.path.exists(abs_path):
                 os.makedirs(abs_path)
         except OSError:
